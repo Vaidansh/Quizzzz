@@ -1,9 +1,8 @@
 const questionEl = document.getElementById('Question');
 const questionFormEl = document.getElementById('questionForm');
 const scoreEl = document.getElementById('score');
-// const answerEl = document.getElementById('answeer');
 let storedAnswer;
-let score = 0;
+let score = JSON.parse(localStorage.getItem("score"));
 const randomNumber = (min,max)=>{
     return Math.floor(Math.random() * (max - min + 1) + min);
 };
@@ -59,6 +58,7 @@ console.log(generateQuestion());
 const showQuestion = ()=>{
     const {question, answer} = generateQuestion();
     questionEl.innerText = question;
+    scoreEl.innerText = score;
     storedAnswer = answer;
     // answerEl.innerText = storedAnswer;
 };
@@ -70,11 +70,28 @@ const checkAnswer = (event)=>{
     const userAnswer = parseFloat(formData.get("answer"));
     if(userAnswer === storedAnswer){
         score+=1;
+        Toastify({
+            text: `Your are correct! and your score is ${score}`,
+            gravity: "bottom",
+            position: "center",
+            style: {
+              background: "linear-gradient(to right, #00b09b, #96c93d)",
+            },
+          }).showToast();
     }
     else{
         score-=1;
+        Toastify({
+            text: `Your are wrong! correct answer is ${storedAnswer}`,
+            gravity: "bottom",
+            position: "center",
+            style: {
+              background: "linear-gradient(to right, #e33217, #ff001e)",
+            },
+          }).showToast();
     }
     scoreEl.innerText = score;
+    localStorage.setItem("score", score);
     event.target.reset();
     showQuestion();
     console.log(userAnswer);
