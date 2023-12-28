@@ -9,7 +9,15 @@
 </head>
 <body>
     <div class="background">
-        
+        <div class="box">
+            <h2>Score-> <span id="score">0</span></h2>
+            <!-- <h2>Answer-><span id="answeer">45</span></h2> -->
+            <h3 id="Question">Q. What is 8 multiply by 4 ?</h3>
+            <form id="questionForm" onsubmit="checkAnswer(event)">
+                <input type="number" id="answerInput" name="answer" step=".01" required>
+                <button class="primary-btn" type="submit">Submit</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
